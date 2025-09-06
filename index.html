@@ -1,574 +1,162 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قيد التطوير</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* خلفية دقيقة */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            z-index: -1;
-        }
-
-        .container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .main-content {
-            max-width: 1000px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            padding: 60px 50px;
-            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            text-align: center;
-            position: relative;
-        }
-
-        /* الصورة الرئيسية */
-        .hero-illustration {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            position: relative;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 20px;
-            padding: 40px;
-            overflow: hidden;
-        }
-
-        .hero-illustration::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='m0 40l40-40h-40z'/%3E%3Cpath d='m0 40l40-40v40z'/%3E%3C/g%3E%3C/svg%3E");
-            z-index: 1;
-        }
-
-        .construction-scene {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 30px;
-        }
-
-        /* الأيقونات التقنية */
-        .tech-icons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            flex: 1;
-        }
-
-        .icon-box {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-
-        .icon-box:nth-child(1) {
-            background: linear-gradient(135deg, #FFB75B, #ED8F03);
-            animation-delay: 0s;
-        }
-
-        .icon-box:nth-child(2) {
-            background: linear-gradient(135deg, #4FACFE, #00F2FE);
-            animation-delay: 0.5s;
-        }
-
-        .icon-box:nth-child(3) {
-            background: linear-gradient(135deg, #FDBB2D, #22C1C3);
-            animation-delay: 1s;
-        }
-
-        .icon-box:nth-child(4) {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            animation-delay: 1.5s;
-        }
-
-        .icon-box:nth-child(5) {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            animation-delay: 2s;
-        }
-
-        .icon-box:nth-child(6) {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            animation-delay: 2.5s;
-        }
-
-        .icon-box:nth-child(7) {
-            background: linear-gradient(135deg, #43e97b, #38f9d7);
-            animation-delay: 0.2s;
-        }
-
-        .icon-box:nth-child(8) {
-            background: linear-gradient(135deg, #fa709a, #fee140);
-            animation-delay: 0.7s;
-        }
-
-        .icon-box:nth-child(9) {
-            background: linear-gradient(135deg, #30cfd0, #91a7ff);
-            animation-delay: 1.2s;
-        }
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
-        }
-
-        /* المعدة الثقيلة */
-        .heavy-machinery {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .excavator {
-            width: 200px;
-            height: 120px;
-            position: relative;
-        }
-
-        /* جسم الحفارة */
-        .excavator-body {
-            width: 80px;
-            height: 50px;
-            background: linear-gradient(135deg, #FFB75B, #ED8F03);
-            border-radius: 10px;
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* كابينة السائق */
-        .excavator-cabin {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #4FACFE, #00F2FE);
-            border-radius: 8px;
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-30%);
-        }
-
-        .excavator-cabin::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
-            bottom: 15px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-        }
-
-        /* الذراع */
-        .excavator-arm {
-            width: 60px;
-            height: 8px;
-            background: #2c3e50;
-            border-radius: 4px;
-            position: absolute;
-            top: 50%;
-            right: -20px;
-            transform-origin: left center;
-            animation: excavatorWork 4s ease-in-out infinite;
-        }
-
-        .excavator-arm::after {
-            content: '';
-            width: 20px;
-            height: 15px;
-            background: #34495e;
-            border-radius: 0 0 10px 10px;
-            position: absolute;
-            right: -15px;
-            top: -10px;
-        }
-
-        @keyframes excavatorWork {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(20deg); }
-        }
-
-        /* العجلات */
-        .excavator-track {
-            width: 90px;
-            height: 15px;
-            background: #2c3e50;
-            border-radius: 8px;
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .excavator-track::before,
-        .excavator-track::after {
-            content: '';
-            width: 20px;
-            height: 20px;
-            background: #34495e;
-            border-radius: 50%;
-            position: absolute;
-            top: -3px;
-        }
-
-        .excavator-track::before {
-            left: 5px;
-        }
-
-        .excavator-track::after {
-            right: 5px;
-        }
-
-        /* العنوان الرئيسي */
-        .main-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            color: #7f8c8d;
-            margin-bottom: 40px;
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        /* شريط التقدم */
-        .progress-container {
-            margin: 50px 0;
-        }
-
-        .progress-label {
-            font-size: 1rem;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #ecf0f1;
-            border-radius: 50px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #3498db, #2980b9);
-            border-radius: 50px;
-            width: 0%;
-            animation: progressAnimation 3s ease-out forwards;
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s ease-in-out infinite;
-        }
-
-        @keyframes progressAnimation {
-            to { width: 78%; }
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* معلومات التقنية */
-        .tech-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-
-        .tech-card {
-            background: rgba(52, 152, 219, 0.1);
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(52, 152, 219, 0.2);
-        }
-
-        .tech-card h4 {
-            color: #2c3e50;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .tech-card p {
-            color: #7f8c8d;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* معلومات الاتصال */
-        .contact-info {
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 1px solid #ecf0f1;
-        }
-
-        .contact-title {
-            font-size: 1.2rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .contact-details {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #7f8c8d;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item:hover {
-            color: #3498db;
-        }
-
-        .contact-icon {
-            width: 20px;
-            height: 20px;
-            opacity: 0.7;
-        }
-
-        /* تجاوب الشاشات */
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 40px 30px;
-                margin: 20px;
-                border-radius: 20px;
-            }
-            
-            .construction-scene {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .tech-icons {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 10px;
-            }
-            
-            .icon-box {
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
-            }
-            
-            .main-title {
-                font-size: 2.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .contact-details {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-content {
-                padding: 30px 20px;
-            }
-            
-            .main-title {
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .hero-illustration {
-                padding: 20px;
-            }
-            
-            .excavator {
-                transform: scale(0.8);
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مدونة المهندس محمد علي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi+Fun:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-color: #f0f2f5;
+    --text-color: #2c3e50;
+    --border-color: #000;
+    --shadow-light: 0 6px 25px rgba(0,0,0,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background-color: var(--bg-color);
+    font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont, 'Cairo', sans-serif;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    direction: rtl;
+    text-align: center;
+    overflow-x: hidden;
+}
+.main-container {
+    width: 100%;
+    max-width: 700px;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-frame {
+    width: 30vw;
+    max-width: 260px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 6px solid var(--border-color);
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-light);
+    animation: pulse 2s infinite cubic-bezier(0.4,0,0.6,1);
+}
+.profile-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.profile-name {
+    font-family: 'Reem Kufi Fun', sans-serif;
+    font-size: 5vw;
+    max-font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.profile-bio {
+    font-size: 2.5vw;
+    max-font-size: 2.5rem;
+    line-height: 2.2;
+    color: #555;
+    margin-bottom: 50px;
+    max-width: 90%;
+    font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont, 'Cairo', sans-serif;
+}
+.social-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+    max-width: 400px;
+    border: 3px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px 20px;
+    background-color: #fff;
+    box-shadow: var(--shadow-light);
+}
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 25px 15px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    text-decoration: none;
+}
+.social-item:hover {
+    background-color: #000;
+    color: #fff;
+    transform: scale(1.05);
+}
+.social-item img {
+    width: 30px;
+    height: 30px;
+}
+@keyframes pulse {
+    0%,100% { transform: scale(1); box-shadow: 0 6px 25px rgba(0,0,0,0.12);}
+    50% { transform: scale(1.06); box-shadow: 0 8px 30px rgba(0,0,0,0.2);}
+}
+@media (max-width: 768px) {
+    .profile-frame { width: 40vw; margin-bottom: 30px; }
+    .profile-name { font-size: 8vw; }
+    .profile-bio { font-size: 4vw; margin-bottom: 40px; }
+    .social-box { width: 90%; padding: 25px 15px; gap: 18px; }
+    .social-item { font-size: 1.5rem; padding: 20px; }
+    .social-item img { width: 28px; height: 28px; }
+}
+@media (max-width: 480px) {
+    .profile-frame { width: 50vw; margin-bottom: 20px; }
+    .profile-name { font-size: 10vw; }
+    .profile-bio { font-size: 5vw; margin-bottom: 30px; }
+    .social-box { width: 95%; padding: 20px 10px; gap: 15px; }
+    .social-item { font-size: 1.3rem; padding: 18px; }
+    .social-item img { width: 25px; height: 25px; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="main-content">
-            <!-- الصورة التوضيحية -->
-            <div class="hero-illustration">
-                <div class="construction-scene">
-                    <!-- الأيقونات التقنية -->
-                    <div class="tech-icons">
-                        <div class="icon-box">⚙️</div>
-                        <div class="icon-box">👁️</div>
-                        <div class="icon-box">🔧</div>
-                        <div class="icon-box">💎</div>
-                        <div class="icon-box">⚙️</div>
-                        <div class="icon-box">🔗</div>
-                        <div class="icon-box">💻</div>
-                        <div class="icon-box">🛠️</div>
-                        <div class="icon-box">📱</div>
-                    </div>
-                    
-                    <!-- المعدة الثقيلة -->
-                    <div class="heavy-machinery">
-                        <div class="excavator">
-                            <div class="excavator-cabin"></div>
-                            <div class="excavator-body"></div>
-                            <div class="excavator-arm"></div>
-                            <div class="excavator-track"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h1 class="main-title">الموقع قيد التطوير</h1>
-            
-            <p class="subtitle">
-                نطور لك حلولاً تقنية متقدمة في البرمجة والهندسة<br>
-                موقعنا الجديد سيكون جاهزاً قريباً بتقنيات حديثة
-            </p>
-
-            <div class="progress-container">
-                <div class="progress-label">حالة التطوير</div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-            </div>
-
-            <div class="tech-info">
-                <div class="tech-card">
-                    <h4>🌐 تطوير الويب</h4>
-                    <p>تصميم وتطوير مواقع إلكترونية متجاوبة وحديثة باستخدام أحدث التقنيات</p>
-                </div>
-                <div class="tech-card">
-                    <h4>📱 تطبيقات الهاتف</h4>
-                    <p>تطوير تطبيقات ذكية للهواتف الذكية بتجربة مستخدم استثنائية</p>
-                </div>
-                <div class="tech-card">
-                    <h4>⚙️ الهندسة التقنية</h4>
-                    <p>حلول هندسية متطورة وأنظمة تقنية مبتكرة لمختلف القطاعات</p>
-                </div>
-            </div>
-
-            <div class="contact-info">
-                <h3 class="contact-title">للتواصل والاستفسارات</h3>
-                <div class="contact-details">
-                    <a href="mailto:info@techcompany.com" class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z"/>
-                        </svg>
-                        info@techcompany.com
-                    </a>
-                    <a href="tel:+1234567890" class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                        </svg>
-                        +966 50 123 4567
-                    </a>
-                </div>
-            </div>
-        </div>
+<div class="main-container">
+    <div class="profile-frame">
+        <img src="hh.png" alt="صورة الملف الشخصي">
     </div>
+    <h1 class="profile-name">المهندس محمد علي</h1>
+    <p class="profile-bio">
+        مرحباً بكم في مدونتي الشخصية. هنا أشارك معكم أفكاري، خبراتي، وتجاربي في مجالات البرمجة، التصميم، والمشاريعي الكهربائيه.
+    </p>
 
-    <script>
-        // تحديث شريط التقدم
-        window.addEventListener('load', function() {
-            const progressFill = document.querySelector('.progress-fill');
-            setTimeout(() => {
-                progressFill.style.animation = 'progressAnimation 2.5s ease-out forwards';
-            }, 500);
-        });
-
-        // تأثير تفاعلي للأيقونات
-        const iconBoxes = document.querySelectorAll('.icon-box');
-        iconBoxes.forEach((box, index) => {
-            box.addEventListener('click', function() {
-                this.style.transform = 'scale(1.1) rotate(10deg)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1) rotate(0deg)';
-                }, 300);
-            });
-        });
-
-        // حركة العمل للمعدة
-        const excavatorArm = document.querySelector('.excavator-arm');
-        setInterval(() => {
-            excavatorArm.style.animationDuration = (Math.random() * 2 + 3) + 's';
-        }, 5000);
-    </script>
+    <div class="social-box">
+        <a href="https://t.me/p1_2p" target="_blank" class="social-item">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="تليغرام">
+            تليغرام
+        </a>
+        <a href="https://www.instagram.com/i0c_b" target="_blank" class="social-item">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="إنستاغرام">
+            إنستاغرام
+        </a>
+        <a href="https://twitter.com/Muhamdd1873" target="_blank" class="social-item">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="تويتر">
+            تويتر
+        </a>
+        <a href="https://wa.me/964776505088" target="_blank" class="social-item">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="واتساب">
+            واتساب
+        </a>
+        <a href="https://sendtoengineermohammed.sarhne.com" target="_blank" class="social-item">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/mail-dot-ru.svg" alt="رسائل مجهولة">
+            رسائل مجهولة
+        </a>
+    </div>
+</div>
 </body>
 </html>
